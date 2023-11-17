@@ -1,7 +1,7 @@
 
 
 export APP_NAME=mlflow-xgb-demo
-export MODEL_PATH=runs:/c413fe91b94f4a8db7492ffa6657a0f6/model
+export MODEL_PATH=/home/erik/DataspellProjects/Stock-Prediction/mlruns/467592723741106657/c413fe91b94f4a8db7492ffa6657a0f6/artifacts/model
 export LOCAL_PORT=8888
 export REGION=eu-central-1
 export ROLE=arn:aws:iam::401605265667:role/service-role/AmazonSageMaker-ExecutionRole-20231117T143908
