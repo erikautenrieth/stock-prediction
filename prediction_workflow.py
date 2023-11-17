@@ -2,7 +2,7 @@ from influxdb_manager import InfluxDBOperations
 from model import model_prediction
 from preprocessing import get_data
 
-DEFAULT_MODEL = "runs:/5c036be77ea045228b58b4fa52821f65/model"
+DEFAULT_MODEL = "runs:/c413fe91b94f4a8db7492ffa6657a0f6/model"
 
 def model_prediction(db_operations):
     import mlflow

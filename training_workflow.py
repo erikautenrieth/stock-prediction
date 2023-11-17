@@ -5,8 +5,8 @@ from influxdb_manager import InfluxDBOperations
 from model import train_and_tune_extra_tree_model, log_to_mlflow, model_prediction
 
 
-ray.init()
-#ray.init("ray://localhost:10001") ## VM
+#ray.init()
+ray.init("ray://localhost:10001") ## VM
 #print(ray.cluster_resources())
 
 db_operations = InfluxDBOperations()

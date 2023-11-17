@@ -51,7 +51,7 @@ def log_to_mlflow(model, accuracy):
     mlflow.set_tracking_uri("http://localhost:5000")
     best_extra_tree = "best_extra_tree_model"
 
-    default_logged_model = 'runs:/5c036be77ea045228b58b4fa52821f65/model'
+    default_logged_model = 'runs:/c413fe91b94f4a8db7492ffa6657a0f6/model'
 
     with mlflow.start_run():
         mlflow.sklearn.log_model(model, "model")
