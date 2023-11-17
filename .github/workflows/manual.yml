@@ -18,5 +18,10 @@ jobs:
         with:
           python-version: '3.10.12'
 
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt  
+          
+
       - name: Run Prediction Script
         run: python prediction_workflow.py
