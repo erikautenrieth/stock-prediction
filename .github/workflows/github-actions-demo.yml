@@ -21,4 +21,4 @@ jobs:
           pip install -r requirements.txt  
 
       - name: Run Prediction Script
-        run: python workflow.py
+        run: python prediction_workflow.py

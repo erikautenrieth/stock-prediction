@@ -1,5 +1,7 @@
 import ray
-@ray.remote(num_cpus=12)
+
+
+@ray.remote(num_cpus=5)
 def train_and_tune_extra_tree_model(sp500_data):
     from sklearn.metrics import accuracy_score
     from sklearn.ensemble import ExtraTreesClassifier
@@ -98,3 +100,5 @@ def model_prediction(db_operations):
     prediction = loaded_model.predict(df)
     prediction_df["Target"] = prediction
     db_operations.save_prediction_to_influx(prediction_df)
+
+    return  prediction_df

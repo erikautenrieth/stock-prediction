@@ -19,6 +19,6 @@ model_path = log_to_mlflow(best_model, accuracy)
 
 db_operations.save_to_influx(last_day_df=last_day_df, model_path=model_path)
 
-model_prediction(db_operations)
+prediction_df = model_prediction(db_operations)
 
 print("Workflow erfolgreich durchgelaufen")
