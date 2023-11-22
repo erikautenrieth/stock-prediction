@@ -13,12 +13,12 @@ def train_and_tune_extra_tree_model(sp500_data):
     train_x, test_x, train_y, test_y = train_test_split(X, sp500_data['Target'], test_size=0.25, random_state=42)
 
     model = ExtraTreesClassifier(random_state=42)
-    # Hyperparameter, die getunt werden sollen
     param_distributions = {
         'n_estimators': tune.randint(100, 2000),
         'max_depth': tune.randint(100, 2000),
-        'min_samples_split': tune.choice([1, 5, 20]),
-        'min_samples_leaf': tune.choice([1, 2, 20]),
+        "criterion": tune.choice(["gini", "entropy"]),
+        'min_samples_split': tune.choice([1, 2, 5]),
+        'min_samples_leaf': tune.choice([1, 2, 5]),
         'max_features': tune.choice(['auto', 'sqrt', 'log2'])
     }
 
@@ -34,7 +34,7 @@ def train_and_tune_extra_tree_model(sp500_data):
     )
     tuner.fit(train_x, train_y)
     best_model = tuner.best_estimator_
-    #joblib.dump(best_model, './data/predict_model/best_extra_tree_model.pkl')
+    # joblib.dump(best_model, './data/predict_model/best_extra_tree_model.pkl')
     predictions = best_model.predict(test_x)
     accuracy = accuracy_score(test_y, predictions)
     print(f"Best model parameters: {tuner.best_params_}")
@@ -91,6 +91,7 @@ def log_to_mlflow(model, accuracy):
                     print("The new model isn't better")
                     return default_logged_model
 
+
 def model_prediction(db_operations):
     import mlflow
 
@@ -101,4 +102,4 @@ def model_prediction(db_operations):
     prediction_df["Target"] = prediction
     db_operations.save_prediction_to_influx(prediction_df)
 
-    return  prediction_df
+    return prediction_df
