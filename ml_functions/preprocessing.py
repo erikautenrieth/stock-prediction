@@ -48,6 +48,6 @@ def get_data(stock_wkn="^GSPC"):
 
     # Save trainings data
     sp500_data = sp500_data.iloc[:-10] # Drop last 10 days
-    sp500_data.to_csv(f'./data/sp500_training_data_to_{last_day}.csv', index=True)
+    sp500_data.to_csv(f'./data/sp500_training_data_to_{last_day}.csv', index=False)
 
     return sp500_data, last_day_df
