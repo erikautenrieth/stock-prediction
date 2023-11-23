@@ -1,8 +1,8 @@
 import ray
 
-from preprocessing import get_data
-from influxdb_manager import InfluxDBOperations
-from model import train_and_tune_extra_tree_model, log_to_mlflow, model_prediction
+from ml_functions.preprocessing import get_data
+from ml_functions.influxdb_manager import InfluxDBOperations
+from ml_functions.model import train_and_tune_extra_tree_model, log_to_mlflow, model_prediction
 
 
 #ray.init()

@@ -1,6 +1,6 @@
-from influxdb_manager import InfluxDBOperations
-from model import model_prediction
-from preprocessing import get_data
+from ml_functions.influxdb_manager import InfluxDBOperations
+from ml_functions.model import model_prediction
+from ml_functions.preprocessing import get_data
 
 DEFAULT_MODEL = "runs:/c413fe91b94f4a8db7492ffa6657a0f6/model"
 
