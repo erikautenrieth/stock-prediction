@@ -20,8 +20,13 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install -r simple_requirements.txt  
+          pip install install boto3 pandas influxdb-client certifi requests
           
+      - name: Set environment variables
+        run: |
+          echo "INFLUXDB_HOST=https://us-east-1-1.aws.cloud2.influxdata.com" >> $GITHUB_ENV
+          echo "INFLUXDB_TOKEN=nlg1Z5pTNYCdwYwK7jh1LV6lIoJAYnYdLpgZNNqBdLrnX4d8PnBNTJfBDNhtrc9_tzGiBLyJE4Zh4pEP5I45VQ==" >> $GITHUB_ENV
+          echo "INFLUXDB_ORG=Dev Team" >> $GITHUB_ENV
 
       - name: Run Prediction Script
-        run: python simple_workflow.py
+        run: python workflow.predict_workflow.py
