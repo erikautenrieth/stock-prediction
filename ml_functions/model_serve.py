@@ -1,6 +1,6 @@
 import boto3
 import json
-from influxdb_manager import InfluxDBOperations
+from ml_functions.influxdb_manager import InfluxDBOperations
 
 class SageMakerHandler:
     def __init__(self, app_name, region):
