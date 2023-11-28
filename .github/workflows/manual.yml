@@ -29,4 +29,4 @@ jobs:
           echo "INFLUXDB_ORG=Dev Team" >> $GITHUB_ENV
 
       - name: Run Prediction Script
-        run: python workflow.predict_workflow.py
+        run: python workflow/predict_workflow.py
