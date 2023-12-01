@@ -20,7 +20,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install install boto3 pandas influxdb-client certifi requests dotenv
+          pip install install boto3 pandas influxdb-client certifi requests python-dotenv
           
       - name: Set environment variables
         run: |
