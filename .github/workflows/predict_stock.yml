@@ -1,4 +1,4 @@
-name: Manual workflow
+name: Predict Stock Data workflow
 
 on:
   workflow_dispatch:
@@ -16,7 +16,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install install boto3 pandas influxdb3-python certifi requests python-dotenv
+          pip install install boto3 pandas influxdb3-python certifi requests python-dotenv 
           
       - name: Set environment variables
         run: |

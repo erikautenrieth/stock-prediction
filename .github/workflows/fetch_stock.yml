@@ -31,7 +31,7 @@ jobs:
         run: pip install ta-lib
 
       - name: Install Python Dependencies
-        run: pip install pandas influxdb3-python certifi requests python-dotenv yfinance ta-lib
+        run: pip install pandas influxdb3-python certifi requests python-dotenv yfinance ta-lib scikit-learn
 
       - name: Set environment variables
         run: |

@@ -2,23 +2,23 @@ import ray
 
 from ml.features.preprocessing import get_data
 from ml.functions.influxdb_manager import InfluxDBOperations
-from ml.ml_functions import train_and_tune_extra_tree_model, log_to_mlflow, model_prediction
+from ml.ml_functions.ml_model_extra_tree import train_and_tune_extra_tree_model, log_to_mlflow
 
 
-#ray.init()
-ray.init("ray://localhost:10001") ## VM
+ray.init()
+## ray.init("ray://localhost:10001") ## VM
 #print(ray.cluster_resources())
 
-db_operations = InfluxDBOperations()
 
-sp500_data, last_day_df = get_data()
+stock_data, last_day_df = get_data()
 
-best_model, accuracy = ray.get(train_and_tune_extra_tree_model.remote(sp500_data))
+best_model, accuracy = ray.get(train_and_tune_extra_tree_model.remote(stock_data))
 
 model_path = log_to_mlflow(best_model, accuracy)
 
-db_operations.save_to_influx(last_day_df=last_day_df, model_path=model_path)
 
-prediction_df = model_prediction(db_operations)
 
-print("Workflow erfolgreich durchgelaufen")
+
+
+#prediction_df = model_prediction()
+#print("Workflow erfolgreich durchgelaufen")
