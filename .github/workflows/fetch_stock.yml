@@ -1,0 +1,44 @@
+name: Fetch and Process Stock Data Workflow
+
+on:
+  workflow_dispatch:
+jobs:
+  run_fetch_and_process_stock_data:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.10.12'
+
+      - name: Install TA-Lib dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential
+          sudo apt-get install -y python3-dev
+          sudo pip install -U setuptools
+          wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+          tar -xzf ta-lib-0.4.0-src.tar.gz
+          cd ta-lib/
+          sudo ./configure --prefix=/usr
+          sudo make
+          sudo make install
+
+      - name: Install TA-Lib Python binding
+        run: pip install ta-lib
+
+      - name: Install Python Dependencies
+        run: pip install pandas influxdb3-python certifi requests python-dotenv yfinance talib
+
+      - name: Set environment variables
+        run: |
+          echo "INFLUXDB_HOST=https://us-east-1-1.aws.cloud2.influxdata.com" >> $GITHUB_ENV
+          echo "INFLUXDB_TOKEN=nlg1Z5pTNYCdwYwK7jh1LV6lIoJAYnYdLpgZNNqBdLrnX4d8PnBNTJfBDNhtrc9_tzGiBLyJE4Zh4pEP5I45VQ==" >> $GITHUB_ENV
+          echo "INFLUXDB_ORG=Dev Team" >> $GITHUB_ENV
+
+      - name: Run Fetch and Process Stock Data Script
+        run: python -m ml.workflow.fetch_stock_data_workflow
+
