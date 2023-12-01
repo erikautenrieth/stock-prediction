@@ -1,12 +1,15 @@
+import certifi
+import os
 import pandas as pd
 from influxdb_client_3 import InfluxDBClient3, Point, flight_client_options
-import certifi
+from dotenv import load_dotenv
+load_dotenv()
 
 class InfluxDBOperations:
     def __init__(self):
-        self.host = "https://us-east-1-1.aws.cloud2.influxdata.com" # os.environ['INFLUXDB_HOST']
-        self.token = "nlg1Z5pTNYCdwYwK7jh1LV6lIoJAYnYdLpgZNNqBdLrnX4d8PnBNTJfBDNhtrc9_tzGiBLyJE4Zh4pEP5I45VQ==" # os.environ['INFLUXDB_TOKEN']
-        self.org = "Dev Team" # os.environ['INFLUXDB_ORG']
+        self.host = os.getenv('INFLUXDB_HOST')
+        self.token = os.getenv('INFLUXDB_TOKEN')
+        self.org = os.getenv('INFLUXDB_ORG')
         self.bucket = "data_to_predict"
         self.client = InfluxDBClient3(host=self.host, token=self.token, org=self.org)
 
@@ -37,7 +40,7 @@ class InfluxDBOperations:
 
         query = """SELECT *
         FROM "stock_data"
-        WHERE time > now() - 24h"""
+        WHERE time > now() - 30d"""
 
         result = client.query(query=query, database=self.bucket, language="influxql")
 

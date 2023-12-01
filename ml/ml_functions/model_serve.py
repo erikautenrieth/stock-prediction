@@ -1,13 +1,21 @@
+import os
 import boto3
 import json
 
-from ml_functions.influxdb_manager import InfluxDBOperations
+from dotenv import load_dotenv
+from ml.functions.influxdb_manager import InfluxDBOperations
 
+load_dotenv()
 class SageMakerHandler:
-    def __init__(self, app_name, region):
-        self.app_name = app_name
-        self.region = region
+    def __init__(self):
+        self.app_name = os.getenv('SAGEMAKER_APP_NAME')
+        self.region = os.getenv('SAGEMAKER_REGION')
         self.influxDB = InfluxDBOperations()
+        boto3.setup_default_session(
+            aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+            aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+            region_name=self.region
+        )
 
     def query_endpoint(self, input_json):
         client = boto3.session.Session().client('sagemaker-runtime', self.region)

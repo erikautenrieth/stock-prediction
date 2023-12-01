@@ -8,7 +8,7 @@
   <component name="PyNamespacePackagesService">
     <option name="namespacePackageFolders">
       <list>
-        <option value="$MODULE_DIR$/workflow" />
+        <option value="$MODULE_DIR$/ml/workflow" />
       </list>
     </option>
   </component>
