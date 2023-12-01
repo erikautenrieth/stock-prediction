@@ -1,7 +1,9 @@
 name: Predict Stock Data workflow
 
 on:
-  workflow_dispatch:
+  #workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * *'  # Führt jeden Tag um 6 Uhr morgens UTC aus
 jobs:
   run_prediction:
     runs-on: ubuntu-latest
