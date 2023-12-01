@@ -1,6 +1,6 @@
 import ray
 
-from ml.ml_functions import get_data
+from ml.features.preprocessing import get_data
 from ml.functions.influxdb_manager import InfluxDBOperations
 from ml.ml_functions import train_and_tune_extra_tree_model, log_to_mlflow, model_prediction
 

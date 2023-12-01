@@ -1,5 +1,6 @@
 import ray
-
+import mlflow
+from mlflow.tracking import MlflowClient
 
 @ray.remote(num_cpus=5)
 def train_and_tune_extra_tree_model(sp500_data):
@@ -44,8 +45,6 @@ def train_and_tune_extra_tree_model(sp500_data):
 
 
 def log_to_mlflow(model, accuracy):
-    import mlflow
-    from mlflow.tracking import MlflowClient
 
     mlflow.set_experiment("sp500_prediction")
     mlflow.set_tracking_uri("http://localhost:5000")
@@ -93,7 +92,6 @@ def log_to_mlflow(model, accuracy):
 
 
 def model_prediction(db_operations):
-    import mlflow
 
     df, prediction_df = db_operations.get_data_from_influx()
     logged_model = prediction_df["model"].iloc[0]
