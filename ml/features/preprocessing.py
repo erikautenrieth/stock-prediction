@@ -64,6 +64,10 @@ def calc_indicators(df):
     df["ADOSC"] = ta.ADOSC(df["High"], df["Low"], df["Close"], df["Volume"], fastperiod=3, slowperiod=10)
     df["%K"] = (df['Close'] - df['Low']) * 100 / (df['High'] - df['Low'])
     df["%D"] = df['%K'].rolling(3).mean()
+    #df['Bollinger_hband'] = ta.volatility.bollinger_hband(df['Close'])
+    #df['Bollinger_lband'] = ta.volatility.bollinger_lband(df['Close'])
+
+
     df.dropna(inplace=True)
     df.drop(["High", "Low", "Adj Close", "Open"], axis=1, inplace=True)
     return df
