@@ -48,8 +48,8 @@
     - [EOD Historical Data Website](https://eodhistoricaldata.com/)
 
 10. **MorningStar API**
-- Enables quick integration, known for detailed financial analysis.
-- [MorningStar Website](https://www.morningstar.com/)
+    - Enables quick integration, known for detailed financial analysis.
+    - [MorningStar Website](https://www.morningstar.com/)
 
 ### Investment Research & Analytics
 11. **TIKR Terminal**
@@ -64,3 +64,36 @@
 13. **MarketStack**
     - Simple API access to real-time stock prices.
     - [MarketStack Website](https://marketstack.com/)
+
+
+## Additional Financial Data APIs
+
+1. **Benzinga**
+    - Known for extensive market coverage and real-time news.
+    - API allows for 1 call per second, ideal for trading and investment decisions.
+    - [Benzinga API](https://cloud.benzinga.com/)
+
+2. **Stocknewsapi.com**
+    - Provides news headlines with unique data fields like sentiment and type.
+    - Useful for a comprehensive view of stock-related news.
+    - [Stocknewsapi.com](https://www.stocknewsapi.com/)
+
+3. **Nasdaq Data Link**
+    - Comprehensive real-time and historical data for various markets.
+    - Offers powerful API for streaming and REST APIs.
+    - [Nasdaq Data Link](https://data.nasdaq.com/)
+
+4. **Finage**
+    - Wide range of financial data products, including stocks, forex, and crypto.
+    - Known for its reliable and comprehensive API.
+    - [Finage API](https://finage.co.uk/)
+
+5. **Twelve Data**
+    - Access to real-time and historical data of stocks, forex, crypto, ETFs, indices, and more.
+    - Offers solutions and tools for product development.
+    - [Twelve Data API](https://twelvedata.com/)
+
+6**Barchart OnDemand**
+    - Direct and reliable financial market data, suitable for integration into various platforms.
+    - Provides data in any programming or operating system language.
+    - [Barchart OnDemand](https://www.barchart.com/ondemand)
