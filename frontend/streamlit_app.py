@@ -3,6 +3,9 @@ import yfinance as yf
 import plotly.graph_objs as go
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+
+import sys
+sys.path.insert(0, '..')
 from ml.functions.influxdb_manager import InfluxDBOperations
 
 db = InfluxDBOperations()
