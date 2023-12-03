@@ -4,6 +4,6 @@ yfinance
 plotly
 streamlit
 certifi==2022.6.15
-pandas==1.3.3
-python-dotenv==0.19.0
-influxdb-client==3.0.0
+pandas
+python-dotenv
+influxdb3-python
