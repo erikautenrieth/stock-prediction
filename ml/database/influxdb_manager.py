@@ -18,8 +18,15 @@ class InfluxDBOperations:
         self.client = InfluxDBClient3(host=self.host, token=self.token, org=self.org,
                                       flight_client_options=flight_client_options(tls_root_certs=cert))
 
-    def save_to_influx(self, last_day_df, model_path):
-        last_day_df['model'] = model_path
+    def save_to_influx(self, last_day_df, new_model=None):
+        if new_model:
+            last_day_df['model'] = new_model[0]
+            last_day_df['accuracy'] = new_model[1]
+        else:
+            last_day_df['model'] = "ExtraTreesClassifier"
+            last_day_df['accuracy'] = "0.8477341389728097"
+
+
         last_day_df['Target'] = 999
         data = last_day_df.iloc[0].to_dict()
         data['Date'] = last_day_df.index[0].isoformat()
@@ -59,9 +66,37 @@ class InfluxDBOperations:
         df['Date'] = pd.to_datetime(df['Date'])
         df.set_index('Date', inplace=True)
 
-        prediction_df = df[["Target", "model"]].copy()
+        prediction_df = df[["Target", "model", "accuracy"]].copy()
         df.drop(["Target", "model"], axis=1, inplace=True)
-        cols_list = ['Close', 'Volume', 'Rendite', 'SMA 10', 'EMA 10', 'EMA 20', 'WMA 10', 'Momentum 10', 'SAR', 'RSI', 'ROC', '%R', 'OBV', 'MACD', 'MACD_SIGNAL', 'MACD_HIST', 'CCI', 'ADOSC', '%K', '%D']
+        ## TODO schould be generic!!!!!
+        #stock_data, last_day_df = get_data(save_data=False)
+        #stock_data.drop(['Target'], axis=1).columns.to_list()
+        cols_list = ['Close',
+                     'Volume',
+                     'Rendite',
+                     'SMA 10',
+                     'EMA 10',
+                     'EMA 20',
+                     'WMA 10',
+                     'Momentum 10',
+                     'SAR',
+                     'RSI',
+                     'ROC',
+                     '%R',
+                     'OBV',
+                     'MACD',
+                     'MACD_SIGNAL',
+                     'MACD_HIST',
+                     'CCI',
+                     'ADOSC',
+                     '%K',
+                     '%D',
+                     '+DMI',
+                     '-DMI',
+                     'ADX',
+                     'up_band',
+                     'mid_band',
+                     'low_band']
         df = df[cols_list]
 
         return df.iloc[-1:], prediction_df.iloc[-1:]

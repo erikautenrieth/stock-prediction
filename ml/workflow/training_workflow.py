@@ -1,7 +1,7 @@
 import ray
 
 from ml.features.preprocessing import get_data
-from ml.ml_functions.ml_model_extra_tree import train_and_tune_extra_tree_model
+from ml.ml_functions.model_train_extra_tree import train_and_tune_extra_tree_model
 from ml.ml_functions.model_registry import log_to_mlflow
 
 ray.init()

@@ -9,7 +9,7 @@ from dateutil.relativedelta import relativedelta
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if base_dir not in sys.path:
     sys.path.insert(0, base_dir)
-from ml.functions.influxdb_manager import InfluxDBOperations
+from ml.database.influxdb_manager import InfluxDBOperations
 
 db = InfluxDBOperations()
 
@@ -68,9 +68,9 @@ def main():
         )
         st.plotly_chart(fig)
 
-        model_info = predictions['model'].drop_duplicates()
+        model_info = predictions['model', 'accuracy'].drop_duplicates()
         st.write("Model Information and Accuracy")
-        st.table(model_info)
+        st.table(model_info.set_index('index'))
 
     else:
         st.write('No data available.')

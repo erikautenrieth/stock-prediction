@@ -3,10 +3,10 @@ import talib as ta
 
 from datetime import datetime
 from sklearn.preprocessing import StandardScaler
-from ml.functions.influxdb_manager import InfluxDBOperations
+from ml.database.influxdb_manager import InfluxDBOperations
 from ml.features.new_features import calc_new_feature
 
-def get_data(stock_wkn="^GSPC", start_year="1980-01-01", save_data=False):
+def get_data(stock_wkn="^GSPC", start_year="1980-01-01", save_data=False, new_model=None):
     # Add Stock
     stock_data = yf.download(stock_wkn, start=start_year, end=datetime.now().strftime('%Y-%m-%d'))
 
@@ -31,9 +31,9 @@ def get_data(stock_wkn="^GSPC", start_year="1980-01-01", save_data=False):
 
     if save_data:
         db = InfluxDBOperations()
-        db.save_to_influx(last_day_df=last_day_df, model_path="Extra-Tree")
+        db.save_to_influx(last_day_df=last_day_df, new_model=new_model)
 
-        #last_day = last_day_df.index[0].strftime('%Y-%m-%d')
+        last_day = last_day_df.index[0].strftime('%Y-%m-%d')
         #last_day_df.to_csv(f'../data/sp500_predict_{last_day}.csv', index=True)
         #stock_data.to_csv(f'../data/sp500_training_data_to_{last_day}.csv', index=False)
         print("Saved Data to Influx and CSV")
@@ -64,9 +64,12 @@ def calc_indicators(df):
     df["ADOSC"] = ta.ADOSC(df["High"], df["Low"], df["Close"], df["Volume"], fastperiod=3, slowperiod=10)
     df["%K"] = (df['Close'] - df['Low']) * 100 / (df['High'] - df['Low'])
     df["%D"] = df['%K'].rolling(3).mean()
-    #df['Bollinger_hband'] = ta.volatility.bollinger_hband(df['Close'])
-    #df['Bollinger_lband'] = ta.volatility.bollinger_lband(df['Close'])
 
+
+    df['+DMI'] = ta.PLUS_DI(df['High'],df['Low'],df['Close'],timeperiod=14)
+    df['-DMI'] = ta.MINUS_DI(df['High'],df['Low'],df['Close'],timeperiod=14)
+    df['ADX'] = ta.ADX(df['High'],df['Low'],df['Close'],timeperiod=14)
+    df['up_band'], df['mid_band'], df['low_band'] = ta.BBANDS(df['Close'], timeperiod =20)
 
     df.dropna(inplace=True)
     df.drop(["High", "Low", "Adj Close", "Open"], axis=1, inplace=True)

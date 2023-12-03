@@ -1,4 +1,4 @@
-from ml.functions.influxdb_manager import InfluxDBOperations
+from ml.database.influxdb_manager import InfluxDBOperations
 from ml.ml_functions import get_data
 
 DEFAULT_MODEL = "runs:/c413fe91b94f4a8db7492ffa6657a0f6/model"
