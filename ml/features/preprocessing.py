@@ -31,7 +31,7 @@ def get_data(stock_wkn="^GSPC", start_year="1980-01-01", save_data=False):
 
     if save_data:
         db = InfluxDBOperations()
-        db.save_to_influx(last_day_df=last_day_df, model_path="DEFAULT")
+        db.save_to_influx(last_day_df=last_day_df, model_path="Extra-Tree")
 
         #last_day = last_day_df.index[0].strftime('%Y-%m-%d')
         #last_day_df.to_csv(f'../data/sp500_predict_{last_day}.csv', index=True)
