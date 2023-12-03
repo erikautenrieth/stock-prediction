@@ -41,13 +41,13 @@ def get_data(stock_wkn="^GSPC", start_year="1980-01-01", save_data=False, new_mo
     return stock_data, last_day_df
 
 def calc_target(df):
-    df['Target'] = (df['Close'].shift(-10) > df['Close']).astype(int)
+    df['Target'] = (df['Close'].shift(-15) > df['Close']).astype(int)
     return df
 
 def calc_indicators(df):
     inputs = df['Close']
     time_period = 10
-    df['Rendite'] = df['Close'].pct_change()
+    #df['Rendite'] = df['Close'].pct_change()
     df = df.dropna()
     df[f"SMA {time_period}"] = ta.SMA(inputs, timeperiod=time_period)
     df[f"EMA {time_period}"] = ta.EMA(inputs, timeperiod=time_period)
