@@ -1,6 +1,7 @@
 import streamlit as st
 import yfinance as yf
 import plotly.graph_objs as go
+import pandas as pd
 import os
 import sys
 from datetime import datetime
@@ -68,9 +69,10 @@ def main():
         )
         st.plotly_chart(fig)
 
-        model_info = predictions.drop_duplicates()
+        model_info = predictions.drop("time", axis=1).drop_duplicates()
+        model_info['Date'] = pd.to_datetime(model_info['Date']).dt.strftime('%Y-%m-%d')
         st.write("Model Information and Accuracy")
-        st.table(model_info.set_index('index'))
+        st.table(model_info)
 
     else:
         st.write('No data available.')
