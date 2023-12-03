@@ -1,5 +1,3 @@
-os
-sys
 yfinance
 plotly
 streamlit
