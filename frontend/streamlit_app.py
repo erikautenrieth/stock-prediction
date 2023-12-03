@@ -59,7 +59,7 @@ def main():
                     buttons=list([
                         dict(count=1, label='1M', step='month', stepmode='backward'),
                         dict(count=3, label='3M', step='month', stepmode='backward'),
-                        dict(step='6M')
+                        dict(step='all')
                     ])
                 ),
                 type='date'
