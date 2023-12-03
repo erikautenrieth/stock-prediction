@@ -1,11 +1,14 @@
 import streamlit as st
 import yfinance as yf
 import plotly.graph_objs as go
+import os
+import sys
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
-import sys
-sys.path.insert(0, '..')
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if base_dir not in sys.path:
+    sys.path.insert(0, base_dir)
 from ml.functions.influxdb_manager import InfluxDBOperations
 
 db = InfluxDBOperations()
