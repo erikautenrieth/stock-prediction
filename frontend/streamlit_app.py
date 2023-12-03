@@ -68,7 +68,7 @@ def main():
         )
         st.plotly_chart(fig)
 
-        model_info = predictions[['model', 'accuracy']].drop_duplicates()
+        model_info = predictions.drop_duplicates()
         st.write("Model Information and Accuracy")
         st.table(model_info.set_index('index'))
 
