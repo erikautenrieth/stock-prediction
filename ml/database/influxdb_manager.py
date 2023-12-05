@@ -24,9 +24,9 @@ class InfluxDBOperations:
             last_day_df['accuracy'] = new_model[1]
         else:
             last_day_df['model'] = "ExtraTreesClassifier"
-            last_day_df['accuracy'] = "0.8477341389728097"
+            last_day_df['accuracy'] = 0.8477341389728097
 
-
+        last_day_df['Volume'] = last_day_df['Volume'].astype(float)
         last_day_df['Target'] = 999
         data = last_day_df.iloc[0].to_dict()
         data['Date'] = last_day_df.index[0].isoformat()
@@ -71,32 +71,16 @@ class InfluxDBOperations:
         ## TODO schould be generic!!!!!
         #stock_data, last_day_df = get_data(save_data=False)
         #stock_data.drop(['Target'], axis=1).columns.to_list()
-        cols_list = ['Close',
-                     'Volume',
-                     'Rendite',
-                     'SMA 10',
-                     'EMA 10',
-                     'EMA 20',
-                     'WMA 10',
-                     'Momentum 10',
-                     'SAR',
-                     'RSI',
-                     'ROC',
-                     '%R',
-                     'OBV',
-                     'MACD',
-                     'MACD_SIGNAL',
-                     'MACD_HIST',
-                     'CCI',
-                     'ADOSC',
-                     '%K',
-                     '%D',
-                     '+DMI',
-                     '-DMI',
-                     'ADX',
-                     'up_band',
-                     'mid_band',
-                     'low_band']
+        cols_list = ['Close', 'Volume', 'SMA 10', 'EMA 10', 'EMA 20', 'WMA 10',
+                     'Momentum 10', 'SAR', 'RSI', 'ROC', '%R', 'OBV', 'MACD', 'MACD_SIGNAL',
+                     'MACD_HIST', 'CCI', 'ADOSC', '%K', '%D', '+DMI', '-DMI', 'ADX',
+                     'up_band', 'mid_band', 'low_band', 'GC=F Close', 'CL=F Close',
+                     'EURUSD=X Close', 'GBPUSD=X Close', 'JPY=X Close', 'CNY=X Close',
+                     '^IXIC Close', '^DJI Close', '^RUT Close', '^FTSE Close',
+                     '^GDAXI Close', '^FCHI Close', '^N225 Close', '^HSI Close',
+                     '^BSESN Close', '^MXX Close', '^AXJO Close', '^IBEX Close',
+                     'SI=F Close', 'HG=F Close', 'NG=F Close', '^TNX Close', '^IRX Close',
+                     '^FVX Close', '^TYX Close', 'SPY Close', 'EFA Close']
         df = df[cols_list]
 
         return df.iloc[-1:], prediction_df.iloc[-1:]

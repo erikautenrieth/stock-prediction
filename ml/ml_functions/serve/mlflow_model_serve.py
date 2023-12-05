@@ -7,7 +7,7 @@ def mlflow_model_prediction(model=None):
     db = InfluxDBOperations()
     df, prediction_df = db.get_data_from_influx()
 
-    logged_model = "runs:/5a62984791c945a1bae69cd36a1a23fb/model"
+    logged_model = "runs:/50a4b51fd5614a9198c39e64e71b61b0/model"
 
     if model: logged_model = model
 
