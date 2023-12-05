@@ -16,6 +16,8 @@ def get_data(stock_wkn="^GSPC", start_year="2000-08-01", save_data=False, new_mo
     # ADD NEW FEATURES
     stock_data = extract_yahoo_data(df=stock_data)
 
+    stock_data['Volume'] = stock_data['Volume'].astype(float)
+
     # Filter Last Day
     last_day_df = stock_data.drop("Target", axis=1)
     last_day_df = last_day_df.tail(1)
