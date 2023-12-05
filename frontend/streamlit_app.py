@@ -16,7 +16,7 @@ from ml.database.influxdb_manager import InfluxDBOperations
 db = InfluxDBOperations()
 
 def main():
-    st.title('Stock Price Trend Prediction')
+    st.title('Stock Price (15-day-ahead) Trend Prediction')
 
     stock_symbol = ["^GSPC", "S&P500"]
 
@@ -70,6 +70,7 @@ def main():
         )
         st.plotly_chart(fig)
 
+        predictions = predictions.tail(3)
         model_info = predictions.drop("time", axis=1).drop_duplicates()
         model_info['Date'] = pd.to_datetime(model_info['Date']).dt.strftime('%Y-%m-%d')
         st.write("Model Information and Accuracy")
