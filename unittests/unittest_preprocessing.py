@@ -1,7 +1,7 @@
 import unittest
 
 
-from ml.features.preprocessing import calc_target, calc_indicators, scaling
+from ml.features.preprocessing import calc_target, calc_indicators
 import yfinance as yf
 class StockDataProcessingTests(unittest.TestCase):
 

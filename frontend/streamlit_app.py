@@ -16,7 +16,7 @@ from ml.database.influxdb_manager import InfluxDBOperations
 db = InfluxDBOperations()
 
 def main():
-    st.title('Stock Price (15-day-ahead) Trend Prediction')
+    st.markdown("<h2 style='text-align: center; color: black;'>Stock Price (15-day-ahead) Trend Prediction</h2>", unsafe_allow_html=True)
 
     stock_symbol = ["^GSPC", "S&P500"]
 
@@ -81,3 +81,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+#%%
+
+#%%

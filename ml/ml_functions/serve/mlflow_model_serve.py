@@ -15,5 +15,6 @@ def mlflow_model_prediction(model=None):
     prediction = loaded_model.predict(df)
     prediction_df["Target"] = prediction
     db.save_prediction_to_influx(prediction_df)
+    print("Vorhersage wurde erstellt")
 
     return prediction_df
