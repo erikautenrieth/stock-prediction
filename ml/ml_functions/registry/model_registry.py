@@ -1,10 +1,9 @@
 import mlflow
 from mlflow.tracking import MlflowClient
-
 from ml.features.preprocessing import get_data
 
 
-def log_sklearn_model_to_mlflow(model, accuracy):
+def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
 
     mlflow.set_experiment("sp500_prediction")
     mlflow.set_tracking_uri("http://localhost:5000")
@@ -13,6 +12,10 @@ def log_sklearn_model_to_mlflow(model, accuracy):
     default_logged_model = 'ExtraTreesClassifier'
     default_logged_accuracy = 0.8477341389728097
     default_model_path = "runs:/5a62984791c945a1bae69cd36a1a23fb/model"
+
+    ## Save Feature names
+    # pd.DataFrame({'feature_names': feature_names}).to_csv("features.csv", index=False)
+    # mlflow.log_artifact("features.csv")
 
     with mlflow.start_run():
         mlflow.sklearn.log_model(model, "model")
