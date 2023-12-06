@@ -24,7 +24,7 @@ class InfluxDBOperations:
             last_day_df['accuracy'] = new_model[1]
         else:
             last_day_df['model'] = "ExtraTreesClassifier"
-            last_day_df['accuracy'] = 0.8477341389728097
+            last_day_df['accuracy'] = 0.9048
 
         last_day_df['Volume'] = last_day_df['Volume'].astype(float)
         last_day_df['Target'] = 999
