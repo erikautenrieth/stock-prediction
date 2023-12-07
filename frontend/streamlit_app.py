@@ -16,10 +16,22 @@ from ml.database.influxdb_manager import InfluxDBOperations
 
 db = InfluxDBOperations()
 
+
+## Test locally with:
+# cd frontend
 # streamlit run streamlit_app.py
 
 
 def main():
+    """
+    Main function for the streamlit app.
+    """
+    st.set_page_config(
+        page_title="Stock Price Trend Prediction",
+        page_icon="📈",
+        layout="wide",
+        initial_sidebar_state="expanded",
+    )
     st.markdown("<h3 style='text-align: center; color: black;'>Stock Price (15-day-ahead) Trend Prediction</h3>",
                 unsafe_allow_html=True)
 
