@@ -4,6 +4,12 @@ from ml.features.preprocessing import get_data
 
 
 def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
+    """ Log a sklearn model with mlflow
+    :param model: sklearn model
+    :param accuracy: model accuracy
+    :param feature_names: list of feature names
+    :return: None
+    """
 
     mlflow.set_experiment("sp500_prediction")
     mlflow.set_tracking_uri("http://localhost:5000")

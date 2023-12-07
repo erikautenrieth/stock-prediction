@@ -30,8 +30,8 @@ def get_data(stock_wkn="^GSPC", start_year="2000-08-01", save_data=False, new_mo
         db.save_to_influx(last_day_df=last_day_df, new_model=new_model)
 
         last_day = last_day_df.index[0].strftime('%Y-%m-%d')
-        #last_day_df.to_csv(f'../data/sp500_predict_{last_day}.csv', index=True)
-        #stock_data.to_csv(f'../data/sp500_training_data_to_{last_day}.csv', index=False)
+        #last_day_df.to_csv(f'../data/training_data/sp500_predict_{last_day}.csv', index=True)
+        #stock_data.to_csv(f'../data/training_data/sp500_training_data_to_{last_day}.csv', index=False)
         print("Saved Data to Influx and CSV")
 
     return stock_data, last_day_df

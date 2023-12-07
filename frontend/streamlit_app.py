@@ -7,6 +7,8 @@ import sys
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
+from charts import line_chart
+
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if base_dir not in sys.path:
     sys.path.insert(0, base_dir)
@@ -15,8 +17,10 @@ from ml.database.influxdb_manager import InfluxDBOperations
 
 db = InfluxDBOperations()
 
+
 def main():
-    st.markdown("<h3 style='text-align: center; color: black;'>Stock Price (15-day-ahead) Trend Prediction</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center; color: black;'>Stock Price (15-day-ahead) Trend Prediction</h3>",
+                unsafe_allow_html=True)
 
     stock_symbol = ["^GSPC", "S&P500"]
 
@@ -36,7 +40,6 @@ def main():
                                              low=data['Low'],
                                              close=data['Close'])])
 
-        # Vorhersagepfeile hinzufügen
         for index, row in predictions.iterrows():
             date = row['Date']
             target = row['Target']
@@ -52,7 +55,6 @@ def main():
                     arrowcolor='green' if target == 1 else 'red'
                 )
 
-        # Layout-Anpassungen für bessere Lesbarkeit
         fig.update_layout(
             title=f'Stock Prediction for {stock_symbol[1]}',
             xaxis_rangeslider_visible=False,
@@ -70,6 +72,10 @@ def main():
         )
         st.plotly_chart(fig)
 
+        line_chart_plot = line_chart(data, predictions, stock_symbol)
+
+        st.plotly_chart(line_chart_plot)
+
         model_info = predictions.drop("time", axis=1).drop_duplicates()
         model_info['Date'] = pd.to_datetime(model_info['Date']).dt.strftime('%Y-%m-%d')
         st.write("Model Information and Accuracy")
@@ -78,9 +84,10 @@ def main():
     else:
         st.write('No data available.')
 
+
 if __name__ == '__main__':
     main()
 
-#%%
+# %%
 
-#%%
+# %%
