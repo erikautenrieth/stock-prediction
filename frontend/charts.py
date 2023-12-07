@@ -9,8 +9,10 @@ def line_chart(predictions, stock_symbol):
 
     end_date_linie = datetime.now()
     start_date_linie = end_date_linie - relativedelta(months=months)
+
     data_linie = yf.download(stock_symbol[0], start=start_date_linie.strftime('%Y-%m-%d'),
                              end=end_date_linie.strftime('%Y-%m-%d'))
+
     fig_linie = go.Figure(data=[go.Scatter(x=data_linie.index, y=data_linie['Close'], mode='lines')])
     for index, row in predictions.iterrows():
         date = row['Date']

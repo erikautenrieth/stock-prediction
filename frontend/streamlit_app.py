@@ -72,7 +72,7 @@ def main():
         )
         st.plotly_chart(fig)
 
-        line_chart_plot = line_chart(predictions, stock_symbol)
+        line_chart_plot = line_chart(predictions, stock_symbol[0])
 
         st.plotly_chart(line_chart_plot)
 
