@@ -3,10 +3,15 @@ import time
 from ml.ml_functions.serve.mlflow_model_serve import mlflow_model_prediction
 
 server_process = subprocess.Popen(["mlflow", "server", "--host", "0.0.0.0", "--port", "5000"])
-time.sleep(5)
-mlflow_model_prediction()
-time.sleep(10)
-server_process.terminate()
+try:
+    time.sleep(5)
+    mlflow_model_prediction()
+except Exception as e:
+    print(f"Ein Fehler ist aufgetreten: {e}")
+finally:
+    time.sleep(10)
+    server_process.terminate()
+    print("MLflow-Server wurde geschlossen.")
 
 
 

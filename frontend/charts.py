@@ -46,7 +46,6 @@ def candlestick_chart(data, predictions, stock_symbol):
 
 def line_chart(predictions, stock_symbol):
     months = 3
-
     end_date_linie = datetime.now()
     start_date_linie = end_date_linie - relativedelta(months=months)
 
@@ -54,10 +53,12 @@ def line_chart(predictions, stock_symbol):
                              end=end_date_linie.strftime('%Y-%m-%d'))
 
     fig_linie = go.Figure(data=[go.Scatter(x=data_linie.index, y=data_linie['Close'], mode='lines')])
+
     for index, row in predictions.iterrows():
         date = row['Date']
         target = row['Target']
         if date in data_linie.index:
+            # Pfeil hinzufügen
             fig_linie.add_annotation(
                 x=date,
                 y=data_linie.loc[date, 'Close'],
@@ -67,12 +68,26 @@ def line_chart(predictions, stock_symbol):
                 arrowwidth=2,
                 arrowcolor='green' if target == 1 else 'red'
             )
-        fig_linie.update_layout(
-            title=f'3-Month Chart for {stock_symbol[1]}',
-            xaxis=dict(
-                type='date'
-            ),
-            yaxis_title='Closing Price',
-            xaxis_tickformat='%Y-%m-%d'
-        )
+            date_str  = date
+            date_str = date_str.split('T')[0]  # Trennt den String am 'T' und nimmt nur den Datumsanteil
+            date = datetime.strptime(date_str, '%Y-%m-%d')
+            # Datum 15 Tage in der Zukunft berechnen
+            future_date = date + relativedelta(days=15)
+
+            # Gestrichelte Linie hinzufügen
+            if future_date in data_linie.index:
+                fig_linie.add_trace(go.Scatter(
+                    x=[date, future_date],
+                    y=[data_linie.loc[date, 'Close'], data_linie.loc[future_date, 'Close']],
+                    mode='lines',
+                    line=dict(color='grey', dash='dot')
+                ))
+
+    fig_linie.update_layout(
+        title=f'3-Month Chart for {stock_symbol[1]}',
+        xaxis=dict(type='date'),
+        yaxis_title='Closing Price',
+        xaxis_tickformat='%Y-%m-%d'
+    )
+
     return fig_linie
