@@ -1,3 +1,4 @@
+import os
 import mlflow
 from mlflow.tracking import MlflowClient
 from ml.features.preprocessing import get_data
@@ -13,11 +14,11 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
 
     mlflow.set_experiment("sp500_prediction")
     mlflow.set_tracking_uri("http://localhost:5000")
-    best_model= f"best_{model.__class__.__name__}_model"
+    best_model = f"best_{model.__class__.__name__}_model"
 
     default_logged_model = 'ExtraTreesClassifier'
-    default_logged_accuracy = 0.8477341389728097
-    default_model_path = "runs:/5a62984791c945a1bae69cd36a1a23fb/model"
+    default_logged_accuracy = 0.9186643835616438
+    default_model_path = load_model_path()
 
     with mlflow.start_run():
         mlflow.sklearn.log_model(model, "model")
@@ -73,17 +74,18 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
                     return default_model_path
 
 def save_model_path(actual_model_path):
-    model_file_path = "../data/metadata/actual_model.txt"
+    model_file_path = f"{os.getcwd()}/ml/data/metadata/actual_model.txt"
     with open(model_file_path, 'w') as file:
         file.write(actual_model_path)
     print("Model path saved!")
 
 def load_model_path():
-    model_file_path = "../data/metadata/actual_model.txt"
+    model_file_path = f"{os.getcwd()}/ml/data/metadata/actual_model.txt"
     try:
         with open(model_file_path, 'r') as file:
             model_path = file.read()
+        print("Model path loaded!")
         return model_path
     except FileNotFoundError:
         print("Model path file not found.")
-        return None
+        return "runs:/4df9743095004dd1ad96955ee05b9a34/model"
