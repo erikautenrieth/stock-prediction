@@ -19,10 +19,6 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
     default_logged_accuracy = 0.8477341389728097
     default_model_path = "runs:/5a62984791c945a1bae69cd36a1a23fb/model"
 
-    ## Save Feature names
-    # pd.DataFrame({'feature_names': feature_names}).to_csv("features.csv", index=False)
-    # mlflow.log_artifact("features.csv")
-
     with mlflow.start_run():
         mlflow.sklearn.log_model(model, "model")
         mlflow.log_metric("accuracy", accuracy)
@@ -35,7 +31,8 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
             if "RESOURCE_DOES_NOT_EXIST" in str(e):
                 registered_model = None
             else:
-                raise
+                print("Fehler:", e)
+                registered_model = None
 
         if not registered_model:
             client.create_registered_model(best_model)
@@ -48,6 +45,8 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
                 version=version_info.version,
                 stage="Production"
             )
+            print("First model registered as best model!")
+            save_model_path(actual_model_path)
             return
 
         else:
@@ -67,7 +66,24 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
                     )
                     stock_data, last_day_df = get_data(save_data=True, new_model=(model.__class__.__name__, accuracy))
                     print("New model registered as best model!")
+                    save_model_path(actual_model_path)
                     return actual_model_path
                 else:
                     print("The new model isn't better")
                     return default_model_path
+
+def save_model_path(actual_model_path):
+    model_file_path = "../data/metadata/actual_model.txt"
+    with open(model_file_path, 'w') as file:
+        file.write(actual_model_path)
+    print("Model path saved!")
+
+def load_model_path():
+    model_file_path = "../data/metadata/actual_model.txt"
+    try:
+        with open(model_file_path, 'r') as file:
+            model_path = file.read()
+        return model_path
+    except FileNotFoundError:
+        print("Model path file not found.")
+        return None
