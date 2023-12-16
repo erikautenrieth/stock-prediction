@@ -2,7 +2,7 @@ from ml.database.influxdb_manager import InfluxDBOperations
 import mlflow
 import os
 def mlflow_model_prediction(model=None):
-    # mlflow server --host 0.0.0.0 --port 5000
+    # mlflow server --host 0.0.0.0 --port 5001
     print(os.getcwd())
     db = InfluxDBOperations()
     df, prediction_df = db.get_data_from_influx()

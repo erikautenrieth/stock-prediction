@@ -2,7 +2,7 @@ import subprocess
 import time
 from ml.ml_functions.serve.mlflow_model_serve import mlflow_model_prediction
 
-server_process = subprocess.Popen(["mlflow", "server", "--host", "0.0.0.0", "--port", "5000"])
+server_process = subprocess.Popen(["mlflow", "server", "--host", "0.0.0.0", "--port", "5001"])
 try:
     time.sleep(5)
     mlflow_model_prediction()
