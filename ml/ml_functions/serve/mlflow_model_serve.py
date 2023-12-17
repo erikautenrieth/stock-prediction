@@ -1,7 +1,6 @@
 from ml.database.influxdb_manager import InfluxDBOperations
 
 from ml.ml_functions.registry.model_registry import load_model_path
-
 import mlflow
 import os
 def mlflow_model_prediction(model=None):
