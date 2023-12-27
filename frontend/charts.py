@@ -68,8 +68,7 @@ def line_chart(predictions, stock_symbol):
                 arrowwidth=2,
                 arrowcolor='green' if target == 1 else 'red'
             )
-            date_str  = date
-            date_str = date_str.split('T')[0]  # Trennt den String am 'T' und nimmt nur den Datumsanteil
+            date_str = date.split('T')[0]  # Trennt den String am 'T' und nimmt nur den Datumsanteil
             date = datetime.strptime(date_str, '%Y-%m-%d')
             # Datum 15 Tage in der Zukunft berechnen
             future_date = date + relativedelta(days=15)
@@ -79,12 +78,15 @@ def line_chart(predictions, stock_symbol):
                 closing_price_start = data_linie.loc[date, 'Close']
                 closing_price_end = data_linie.loc[future_date, 'Close']
                 price_diff = closing_price_end - closing_price_start
+
+                line_color = 'green' if price_diff > 0 else 'red'
+                price_diff_sign = '+' if price_diff > 0 else ''
                 fig_linie.add_trace(go.Scatter(
                     x=[date, future_date],
-                    y=[data_linie.loc[date, 'Close'], data_linie.loc[future_date, 'Close']],
+                    y=[closing_price_start, closing_price_end],
                     mode='lines',
-                    name=f'Preisdifferenz: {price_diff:.2f}',  # Anzeige der Preisdifferenz
-                    line=dict(color='grey', dash='dot')
+                    name=f'Preisdifferenz: {price_diff_sign}{price_diff:.2f}',  # Anzeige der Preisdifferenz mit Vorzeichen
+                    line=dict(color=line_color, dash='dot')
                 ))
 
     fig_linie.update_layout(
