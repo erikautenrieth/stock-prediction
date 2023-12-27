@@ -54,11 +54,14 @@ def line_chart(predictions, stock_symbol):
 
     fig_linie = go.Figure(data=[go.Scatter(x=data_linie.index, y=data_linie['Close'], mode='lines')])
 
+    arrow_count = 0  # Zählvariable für die Pfeile
+
     for index, row in predictions.iterrows():
         date = row['Date']
         target = row['Target']
         if date in data_linie.index:
-            # Pfeil hinzufügen
+            arrow_count += 1  # Pfeilnummer erhöhen
+            # Pfeil hinzufügen mit Nummerierung
             fig_linie.add_annotation(
                 x=date,
                 y=data_linie.loc[date, 'Close'],
@@ -66,7 +69,8 @@ def line_chart(predictions, stock_symbol):
                 arrowhead=2,
                 arrowsize=1,
                 arrowwidth=2,
-                arrowcolor='green' if target == 1 else 'red'
+                arrowcolor='green' if target == 1 else 'red',
+                text=str(arrow_count)  # Pfeilnummer als Text
             )
             date_str = date.split('T')[0]  # Trennt den String am 'T' und nimmt nur den Datumsanteil
             date = datetime.strptime(date_str, '%Y-%m-%d')
@@ -85,7 +89,7 @@ def line_chart(predictions, stock_symbol):
                     x=[date, future_date],
                     y=[closing_price_start, closing_price_end],
                     mode='lines',
-                    name=f'Preisdifferenz: {price_diff_sign}{price_diff:.2f}',  # Anzeige der Preisdifferenz mit Vorzeichen
+                    name=f'(Pfeil {arrow_count}) Diff: {price_diff_sign}{price_diff:.2f}',  # Nummerierung und Preisdifferenz
                     line=dict(color=line_color, dash='dot')
                 ))
 
