@@ -76,10 +76,14 @@ def line_chart(predictions, stock_symbol):
 
             # Gestrichelte Linie hinzufügen
             if future_date in data_linie.index:
+                closing_price_start = data_linie.loc[date, 'Close']
+                closing_price_end = data_linie.loc[future_date, 'Close']
+                price_diff = closing_price_end - closing_price_start
                 fig_linie.add_trace(go.Scatter(
                     x=[date, future_date],
                     y=[data_linie.loc[date, 'Close'], data_linie.loc[future_date, 'Close']],
                     mode='lines',
+                    name=f'Preisdifferenz: {price_diff:.2f}',  # Anzeige der Preisdifferenz
                     line=dict(color='grey', dash='dot')
                 ))
 
