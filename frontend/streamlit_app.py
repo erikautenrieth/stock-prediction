@@ -57,6 +57,8 @@ def main():
         st.plotly_chart(line_chart_plot)
 
         # Table with model information
+        predictions.rename(columns={'accuracy': 'Accuracy'}, inplace=True)
+        predictions.rename(columns={'model': 'Model'}, inplace=True)
         model_info = predictions.drop("time", axis=1).drop_duplicates()
         model_info['Date'] = pd.to_datetime(model_info['Date']).dt.strftime('%Y-%m-%d')
         st.write("Model Information and Accuracy")
