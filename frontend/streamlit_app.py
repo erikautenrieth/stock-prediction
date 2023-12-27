@@ -45,6 +45,7 @@ def main():
 
     if not data.empty:
         predictions = db.get_prediction_from_influx()
+        # Ensure that the date is in the correct format
         predictions = predictions.dropna()
         predictions = predictions.drop_duplicates(subset=['Date'])
 
