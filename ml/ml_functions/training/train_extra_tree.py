@@ -4,6 +4,12 @@ from sklearn.metrics import accuracy_score
 
 from ml.features.preprocessing import scale_data
 
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.metrics import confusion_matrix
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
 
 def train_extra_tree(stock_data):
 
@@ -18,5 +24,16 @@ def train_extra_tree(stock_data):
     print(f"Modellname: {etc.__class__.__name__}")
     print(f"Genauigkeit: {accuracy}")
 
+    # Confusion Matrix
+    plot_confusion_matrix(test_y, y_pred)
     return etc, accuracy
 
+
+def plot_confusion_matrix(test_y, y_pred):
+    cm = confusion_matrix(test_y, y_pred)
+    plt.figure(figsize=(8, 6))
+    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title('Konfusionsmatrix')
+    plt.ylabel('Tatsächliche Werte')
+    plt.xlabel('Vorhergesagte Werte')
+    plt.show()
