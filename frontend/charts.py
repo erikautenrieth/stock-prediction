@@ -89,7 +89,7 @@ def line_chart(predictions, stock_symbol):
                     x=[date, future_date],
                     y=[closing_price_start, closing_price_end],
                     mode='lines',
-                    name=f'(Pfeil {arrow_count}) Diff: {price_diff_sign}{price_diff:.2f}',  # Nummerierung und Preisdifferenz
+                    name=f'(Arrow {arrow_count}) Diff: {price_diff_sign}{price_diff:.2f}',  # Nummerierung und Preisdifferenz
                     line=dict(color=line_color, dash='dot')
                 ))
 
