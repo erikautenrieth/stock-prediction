@@ -45,6 +45,7 @@ def main():
 
     if not data.empty:
         predictions = db.get_prediction_from_influx()
+        predictions  = predictions.drop_duplicates()
 
         candle_stick_plot = candlestick_chart(data, predictions, stock_symbol)
         line_chart_plot = line_chart(predictions, stock_symbol)
