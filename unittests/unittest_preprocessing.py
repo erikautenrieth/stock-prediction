@@ -12,15 +12,11 @@ class StockDataProcessingTests(unittest.TestCase):
 
     def test_calc_target(self):
         df = calc_target(self.sample_data.copy())
-        # Prüfen Sie, ob die 'Target'-Spalte hinzugefügt wurde
         self.assertIn('Target', df.columns)
-        # Fügen Sie weitere Überprüfungen hinzu, z.B. Datentypen oder erwartete Werte
 
     def test_calc_indicators(self):
         df = calc_indicators(self.sample_data.copy())
-        # Prüfen Sie, ob die Indikatorenspalten hinzugefügt wurden
         self.assertIn('SMA 10', df.columns)
-        # Weitere Tests für andere Indikatoren
 
     def test_scaling(self):
         df = calc_target(self.sample_data.copy())

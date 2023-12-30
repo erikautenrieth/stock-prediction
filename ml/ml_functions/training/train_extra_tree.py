@@ -31,9 +31,10 @@ def train_extra_tree(stock_data):
 
 def plot_confusion_matrix(test_y, y_pred):
     cm = confusion_matrix(test_y, y_pred)
-    plt.figure(figsize=(8, 6))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
-    plt.title('Konfusionsmatrix')
-    plt.ylabel('Tatsächliche Werte')
-    plt.xlabel('Vorhergesagte Werte')
+    plt.figure(figsize=(10, 8))
+    heatmap = sns.heatmap(cm, annot=True, fmt='d', cmap='Blues')
+    plt.title('Konfusionsmatrix', pad=20)
+    plt.ylabel('Tatsächliche Werte', labelpad=10)
+    plt.xlabel('Vorhergesagte Werte', labelpad=10)
     plt.show()
+    plt.savefig('konfusionsmatrix.png')
