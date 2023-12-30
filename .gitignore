@@ -1,2 +1,5 @@
-/zugaenge
-/.env
+# Environments
+.env
+
+# Jupyter Notebook
+.ipynb_checkpoints

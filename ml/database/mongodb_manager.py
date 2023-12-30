@@ -1,5 +1,3 @@
-API_KEY = "DmSdCCzT0KyRFjFAE9cLKpjkjTdv3JHnsRzfYrVfffvqLkLxAjUeDkyo4soobyHV"
-
 import requests
 import json
 url = "https://eu-central-1.aws.data.mongodb-api.com/app/data-ofjll/endpoint/data/v1/action/findOne"
