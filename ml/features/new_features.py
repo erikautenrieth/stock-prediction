@@ -41,7 +41,8 @@ def extract_yahoo_data(df):
     combined_data = pd.DataFrame()
 
     tickers = ["GC=F", "CL=F", "EURUSD=X", "GBPUSD=X", "JPY=X", "CNY=X", "^IXIC", "^DJI", "^RUT", "^FTSE", "^GDAXI",
-               "^FCHI", "^N225", "^HSI", "^BSESN", "^MXX", "^AXJO", "^IBEX", "SI=F", "HG=F",  "CL=F", "NG=F","^TNX", "^IRX", "^FVX", "^TYX", "SPY", "EFA"]
+               "^FCHI", "^N225", "^HSI", "^BSESN", "^MXX", "^AXJO", "^IBEX", "SI=F", "HG=F",  "CL=F", "NG=F","^TNX",
+               "^IRX", "^FVX", "^TYX", "SPY", "EFA"]
 
     for ticker in tickers:
         data = yf.download(ticker, start="2000-08-01", end=datetime.now().strftime('%Y-%m-%d'))
@@ -60,5 +61,5 @@ def extract_yahoo_data(df):
 
 def get_quandl_data(df):
     import quandl
-    quandl.ApiConfig.api_key = 'Wy8ZWQS9rkyJKyuiVu4G'
+    quandl.ApiConfig.api_key = '' # load your api key from .env
     quandl.get('MULTPL/SP500_DIV_YIELD_MONTH',start_date='undefined',end_date='undefined')
