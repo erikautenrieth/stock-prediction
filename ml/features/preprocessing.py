@@ -18,6 +18,8 @@ def get_data(stock_wkn="^GSPC", start_year="2000-08-01", save_data=False, new_mo
 
     stock_data['Volume'] = stock_data['Volume'].astype(float)
 
+    stock_data = stock_data.fillna(method='ffill')
+
     # Filter Last Day
     last_day_df = stock_data.drop("Target", axis=1)
     last_day_df = last_day_df.tail(1)
