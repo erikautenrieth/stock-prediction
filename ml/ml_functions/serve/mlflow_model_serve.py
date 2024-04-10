@@ -5,15 +5,13 @@ import mlflow
 import os
 def mlflow_model_prediction(model=None):
     # mlflow server --host 0.0.0.0 --port 5001
-    print(os.getcwd())
+    # print(os.getcwd())
     db = InfluxDBOperations()
     df, prediction_df = db.get_data_from_influx()
 
     run_id = load_model_path().split("/")[1] # "4df9743095004dd1ad96955ee05b9a34"
 
     logged_model = f"ml/models/mlartifacts/932838311827738885/{run_id}/artifacts/model"
-
-    if model: logged_model = model
 
     loaded_model = mlflow.pyfunc.load_model(logged_model)
     prediction = loaded_model.predict(df)
