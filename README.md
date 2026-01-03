@@ -3,6 +3,10 @@ Stock Prediction Pipeline with Machine Learning
 
 Note: This is a work in progress. I will be updating this repository as I continue to work on this project.
 
+## Documentation
+- [Aktienkursvorhersage_Bachelorarbeit.pdf](docs/Aktienkursvorhersage_Bachelorarbeit.pdf) - Bachelor thesis on stock price prediction using machine learning techniques.
+- [MLOps_Zeitreihenanalyse_Semionarbeit.pdf](docs/MLOps_Zeitreihenanalyse_Semionarbeit.pdf) - Seminar paper on MLOps practices for time series analysis.
+
 ## Prerequisites
 - Python 3.8+
 - Conda (for environment management)
