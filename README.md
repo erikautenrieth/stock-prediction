@@ -58,5 +58,4 @@ streamlit run streamlit_app.py
 ## Project Structure
 - `ml/`: Machine learning code (features, training, registry, serve)
 - `frontend/`: Streamlit app for visualization
-- `unittests/`: Unit tests
 - `model_lifecycle.ipynb`: Main notebook for model lifecycle
