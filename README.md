@@ -46,7 +46,7 @@ MLFLOW_TRACKING_URI=mlruns
 ## Usage
 
 ### Train Model
-Run the notebook `model_lifecycle.ipynb` in Jupyter to train and log the model.
+Run the notebook `local_model_training.ipynb` in Jupyter to train and log the model.
 
 ### Run Prediction Workflow
 ```bash
