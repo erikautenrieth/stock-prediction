@@ -33,8 +33,11 @@ class InfluxDBOperations:
         data['Date'] = last_day_df.index[0].isoformat()
 
         point = Point("stock_data")
+        # sanitize field names: ensure strings and replace spaces
         for key, value in data.items():
-            point = point.field(key, value)
+            k = str(key)
+            k = k.replace(' ', '_')
+            point = point.field(k, value)
 
         self.client.write(database=self.bucket, record=point)
         print("Complete. Return to the InfluxDB UI.")
@@ -45,7 +48,8 @@ class InfluxDBOperations:
         data['Date'] = prediction_df.index[0].isoformat()
         point = Point("stock_predicts")
         for key, value in data.items():
-            point = point.field(key, value)
+            k = str(key).replace(' ', '_')
+            point = point.field(k, value)
         self.client.write(database=self.predictions_db, record=point)
         print("Complete. Return to the InfluxDB UI.")
 

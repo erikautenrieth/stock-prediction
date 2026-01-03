@@ -68,13 +68,25 @@ def extract_yahoo_data(df):
         combined_data[f"{ticker} Close"] = data["Close"]
 
     combined_data.interpolate(method='polynomial', order=3, inplace=True, axis=0)
-    combined_data.fillna(method='bfill', inplace=True)
+    combined_data.bfill(inplace=True)
 
-    combined_data = df.merge(combined_data, left_index=True, right_index=True, how='left')
-    combined_data.interpolate(method='polynomial', order=3, inplace=True, axis=0)
-    combined_data.fillna(method='bfill', inplace=True)
+    # Reindex combined_data to the same dates as df (works even if df has MultiIndex)
+    if getattr(df.index, 'nlevels', 1) > 1:
+        idx = pd.to_datetime(df.index.get_level_values(0))
+    else:
+        idx = pd.to_datetime(df.index)
 
-    return combined_data
+    combined_data.index = pd.to_datetime(combined_data.index)
+    combined_reindexed = combined_data.reindex(idx)
+
+    out = df.copy()
+    for col in combined_reindexed.columns:
+        out[col] = combined_reindexed[col].values
+
+    out.interpolate(method='polynomial', order=3, inplace=True, axis=0)
+    out.bfill(inplace=True)
+
+    return out
 
 
 

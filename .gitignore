@@ -1,6 +1,12 @@
 # Environments
 .env
 
+.mlruns/
+
+# Local mlflow run storage
+mlruns/
+mlflow.db
+.venv/
 
 # Jupyter Notebook
 .ipynb_checkpoints
