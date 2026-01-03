@@ -1,8 +1,10 @@
-from ml.database.influxdb_manager import InfluxDBOperations
-
-from ml.ml_functions.registry.model_registry import load_model_path
 import mlflow
 import os
+
+from ml.database.influxdb_manager import InfluxDBOperations
+from ml.ml_functions.registry.model_registry import load_model_path
+
+
 def mlflow_model_prediction(model=None):
     # mlflow server --host 0.0.0.0 --port 5001
     # print(os.getcwd())

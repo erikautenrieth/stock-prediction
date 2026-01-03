@@ -1,7 +1,9 @@
 import plotly.graph_objs as go
+import yfinance as yf
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-import yfinance as yf
+
 
 
 def candlestick_chart(data, predictions, stock_symbol):

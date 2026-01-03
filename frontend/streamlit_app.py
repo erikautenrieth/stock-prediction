@@ -3,6 +3,7 @@ import yfinance as yf
 import pandas as pd
 import os
 import sys
+
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -70,7 +71,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-# %%
-
-# %%

@@ -1,7 +1,12 @@
 # Environments
 .env
 
+
 # Jupyter Notebook
 .ipynb_checkpoints
 
-/ml/tests/*
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class

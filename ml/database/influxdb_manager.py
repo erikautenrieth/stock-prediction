@@ -1,6 +1,7 @@
 import certifi
 import os
 import pandas as pd
+
 from influxdb_client_3 import InfluxDBClient3, Point, flight_client_options
 from dotenv import load_dotenv
 load_dotenv()
@@ -10,11 +11,11 @@ class InfluxDBOperations:
         fh = open(certifi.where(), "r")
         cert = fh.read()
         fh.close()
-
         self.host = os.getenv('INFLUXDB_HOST')
         self.token = os.getenv('INFLUXDB_TOKEN')
         self.org = os.getenv('INFLUXDB_ORG')
-        self.bucket = "data_to_predict"
+        self.bucket = os.getenv('INFLUXDB_BUCKET', 'data_to_predict')
+        self.predictions_db = os.getenv('INFLUXDB_PREDICTIONS_DB', 'predictions')
         self.client = InfluxDBClient3(host=self.host, token=self.token, org=self.org,
                                       flight_client_options=flight_client_options(tls_root_certs=cert))
 
@@ -45,7 +46,7 @@ class InfluxDBOperations:
         point = Point("stock_predicts")
         for key, value in data.items():
             point = point.field(key, value)
-        self.client.write(database="predictions", record=point)
+        self.client.write(database=self.predictions_db, record=point)
         print("Complete. Return to the InfluxDB UI.")
 
 
@@ -91,7 +92,7 @@ class InfluxDBOperations:
         FROM "stock_predicts"
         WHERE time >= now() - 30d"""
 
-        result = self.client.query(query=query, database="predictions", language="influxql")
+        result = self.client.query(query=query, database=self.predictions_db, language="influxql")
 
         df = result.to_pandas().drop(["iox::measurement"], axis=1)
         return df
