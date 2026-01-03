@@ -68,6 +68,8 @@ class InfluxDBOperations:
         result = self.client.query(query=query, database=self.bucket, language="influxql")
 
         df = result.to_pandas().drop(["iox::measurement", "time"], axis=1)
+        # Restore original column names: convert underscores back to spaces (reverse of sanitization in save_to_influx)
+        df.columns = [col.replace('_', ' ') for col in df.columns]
         df['Date'] = pd.to_datetime(df['Date'])
         df.set_index('Date', inplace=True)
 
@@ -86,7 +88,7 @@ class InfluxDBOperations:
                      '^BSESN Close', '^MXX Close', '^AXJO Close', '^IBEX Close',
                      'SI=F Close', 'HG=F Close', 'NG=F Close', '^TNX Close', '^IRX Close',
                      '^FVX Close', '^TYX Close', 'SPY Close', 'EFA Close']
-        df = df[cols_list]
+        df = df[[col for col in cols_list if col in df.columns]]
 
         return df.iloc[-1:], prediction_df.iloc[-1:]
 

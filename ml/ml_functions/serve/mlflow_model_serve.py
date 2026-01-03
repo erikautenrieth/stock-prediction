@@ -1,19 +1,20 @@
 import mlflow
 
 from ml.database.influxdb_manager import InfluxDBOperations
-from ml.ml_functions.registry.model_registry import load_model_path
+from ml.ml_functions.registry.model_registry import load_model_path, _set_mlflow_tracking
 
 
 def mlflow_model_prediction(model=None):
-    # mlflow server --host 0.0.0.0 --port 5001
+    _set_mlflow_tracking()
+    
     db = InfluxDBOperations()
     df, prediction_df = db.get_data_from_influx()
 
-    run_id = load_model_path().split("/")[1]
+    model_uri = model if model else load_model_path()
+    if not model_uri:
+        raise RuntimeError("No model URI found. Train and register a model first.")
 
-    logged_model = f"ml/models/mlartifacts/932838311827738885/{run_id}/artifacts/model"
-
-    loaded_model = mlflow.pyfunc.load_model(logged_model)
+    loaded_model = mlflow.pyfunc.load_model(model_uri)
     prediction = loaded_model.predict(df)
     prediction_df["Target"] = prediction
     db.save_prediction_to_influx(prediction_df)

@@ -1,8 +1,17 @@
 import os
+import pathlib
 import mlflow
 
 from mlflow.tracking import MlflowClient
 from ml.features.preprocessing import get_data
+
+
+def _set_mlflow_tracking():
+    """Set MLflow tracking URI from env or default to local mlruns"""
+    uri = os.getenv("MLFLOW_TRACKING_URI", "mlruns")
+    if "://" not in uri:
+        uri = pathlib.Path(uri).resolve().as_uri()
+    mlflow.set_tracking_uri(uri)
 
 
 def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
@@ -13,8 +22,9 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
     :return: None
     """
 
+    _set_mlflow_tracking()
     mlflow.set_experiment("sp500_prediction")
-    mlflow.set_tracking_uri("http://localhost:5000")
+    
     best_model = f"best_{model.__class__.__name__}_model"
 
     #default_logged_model = 'ExtraTreesClassifier'
@@ -23,7 +33,8 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
     with mlflow.start_run():
         mlflow.sklearn.log_model(model, "model")
         mlflow.log_metric("accuracy", accuracy)
-        run_id = mlflow.active_run().info.run_uuid
+        run_info = mlflow.active_run().info
+        run_id = getattr(run_info, "run_id", None) or getattr(run_info, "run_uuid", None)
         actual_model_path = f"runs:/{run_id}/model"
         client = MlflowClient()
         try:
