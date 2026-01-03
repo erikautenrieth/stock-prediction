@@ -1,9 +1,9 @@
 name: Fetch and Process Stock Data Workflow
 
 on:
-  # workflow_dispatch:
+  workflow_dispatch:
   schedule:
-    - cron: '0 5 * * *'  # Führt jeden Tag um 5 Uhr morgens UTC aus
+    - cron: '0 5 1 * *'  # Führt am 1. jeden Monats um 5 Uhr morgens UTC aus
 jobs:
   run_fetch_and_process_stock_data:
     runs-on: ubuntu-latest
