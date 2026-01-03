@@ -9,7 +9,6 @@ from ray.tune.sklearn import TuneSearchCV
 @ray.remote(num_cpus=5)
 def train_and_tune_extra_tree_model(sp500_data):
 
-
     X = sp500_data.drop(['Target'], axis=1)
     train_x, test_x, train_y, test_y = train_test_split(X, sp500_data['Target'], test_size=0.25, random_state=42)
 
