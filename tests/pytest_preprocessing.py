@@ -1,6 +1,6 @@
 import yfinance as yf
 
-from ml.features.preprocessing import calc_target, calc_indicators, scale_data
+from src.features.preprocessing import calc_target, calc_indicators, scale_data
 
 
 def setup_module():

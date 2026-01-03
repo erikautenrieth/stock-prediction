@@ -50,7 +50,7 @@ Run the notebook `model_lifecycle.ipynb` in Jupyter to train and log the model.
 
 ### Run Prediction Workflow
 ```bash
-python -m ml.ml_functions.mlflow_predict_workflow
+python -m src.ml_functions.mlflow_predict_workflow
 ```
 
 ### Start Frontend
@@ -60,6 +60,6 @@ streamlit run streamlit_app.py
 ```
 
 ## Project Structure
-- `ml/`: Machine learning code (features, training, registry, serve)
+- `src/`: Machine learning code (features, training, registry, serve)
 - `frontend/`: Streamlit app for visualization
 - `model_lifecycle.ipynb`: Main notebook for model lifecycle

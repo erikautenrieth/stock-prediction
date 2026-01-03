@@ -1,7 +1,7 @@
 ## Start Prediction Workflow
 
 ```bash
-python -m ml.ml_functions.mlflow_predict_workflow.py
+python -m src.ml_functions.mlflow_predict_workflow.py
 ```
 
 

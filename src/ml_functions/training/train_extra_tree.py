@@ -2,7 +2,7 @@ from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
 
-from ml.features.preprocessing import scale_data
+from src.features.preprocessing import scale_data
 
 import matplotlib.pyplot as plt
 import seaborn as sns

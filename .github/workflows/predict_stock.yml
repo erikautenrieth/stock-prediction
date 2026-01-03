@@ -27,4 +27,4 @@ jobs:
           echo "INFLUXDB_ORG=Dev Team" >> $GITHUB_ENV
 
       - name: Run Prediction Script
-        run:  python -m ml.workflow.sagemaker_predict_workflow
+        run:  python -m src.workflow.sagemaker_predict_workflow

@@ -3,7 +3,7 @@ import boto3
 import json
 
 from dotenv import load_dotenv
-from ml.database.influxdb_manager import InfluxDBOperations
+from src.database.influxdb_manager import InfluxDBOperations
 
 load_dotenv()
 class SageMakerHandler:

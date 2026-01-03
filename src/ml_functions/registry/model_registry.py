@@ -3,7 +3,7 @@ import pathlib
 import mlflow
 
 from mlflow.tracking import MlflowClient
-from ml.features.preprocessing import get_data
+from src.features.preprocessing import get_data
 
 
 def _set_mlflow_tracking():
@@ -85,13 +85,13 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
                     return default_model_path
 
 def save_model_path(actual_model_path):
-    model_file_path = f"{os.getcwd()}/ml/data/metadata/actual_model.txt"
+    model_file_path = f"{os.getcwd()}/src/data/metadata/actual_model.txt"
     with open(model_file_path, 'w') as file:
         file.write(actual_model_path)
     print("Model path saved!")
 
 def load_model_path():
-    model_file_path = f"{os.getcwd()}/ml/data/metadata/actual_model.txt"
+    model_file_path = f"{os.getcwd()}/src/data/metadata/actual_model.txt"
     try:
         with open(model_file_path, 'r') as file:
             model_path = file.read()

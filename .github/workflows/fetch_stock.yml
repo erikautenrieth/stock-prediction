@@ -42,5 +42,5 @@ jobs:
           echo "INFLUXDB_ORG=Dev Team" >> $GITHUB_ENV
 
       - name: Run Fetch and Process Stock Data Script
-        run: python -m ml.workflow.fetch_stock_data_workflow
+        run: python -m src.workflow.fetch_stock_data_workflow
 

@@ -1,8 +1,8 @@
 import yfinance as yf
 
 from datetime import datetime
-from ml.database.influxdb_manager import InfluxDBOperations
-from ml.features.new_features import extract_yahoo_data, calc_indicators
+from src.database.influxdb_manager import InfluxDBOperations
+from src.features.new_features import extract_yahoo_data, calc_indicators
 
 def get_data(stock_wkn="^GSPC", start_year="2000-08-01", save_data=False, new_model=None):
     # Add Stock

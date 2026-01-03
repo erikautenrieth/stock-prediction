@@ -1,8 +1,8 @@
 import ray
 
-from ml.features.preprocessing import get_data
-from ml.ml_functions.training.ray_train_extra_tree import train_and_tune_extra_tree_model
-from ml.ml_functions.registry.model_registry import log_to_mlflow
+from src.features.preprocessing import get_data
+from src.ml_functions.training.ray_train_extra_tree import train_and_tune_extra_tree_model
+from src.ml_functions.registry.model_registry import log_to_mlflow
 
 ray.init()
 ## ray.init("ray://localhost:10001") ## VM
