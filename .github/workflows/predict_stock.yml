@@ -2,8 +2,8 @@ name: Predict Stock Data
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: '0 6 * * *'  # Führt jeden Tag um 6 Uhr morgens UTC aus
+  schedule:
+    - cron: '0 6 1 * *'  # Führt jeden 1. des Monats um 6 Uhr morgens UTC aus
 jobs:
   run_prediction:
     runs-on: ubuntu-latest
@@ -18,7 +18,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install install boto3 pandas influxdb3-python certifi requests python-dotenv 
+          pip install boto3 pandas influxdb3-python certifi requests python-dotenv 
           
       - name: Set environment variables
         run: |

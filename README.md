@@ -8,9 +8,8 @@ Note: This is a work in progress. I will be updating this repository as I contin
 - [MLOps_Zeitreihenanalyse_Semionarbeit.pdf](docs/MLOps_Zeitreihenanalyse_Semionarbeit.pdf) - Seminar paper on MLOps practices for time series analysis.
 
 ## Prerequisites
-- Python 3.8+
-- Conda (for environment management)
-- Git
+- Python 3.10+
+
 
 ## Local Development Setup
 
@@ -22,14 +21,15 @@ cd stock-prediction
 
 ### 2. Create and Activate Conda Environment
 ```bash
-conda create -n scipy python=3.8
-conda activate scipy
+conda create -n stock-prediction python=3.10
+conda activate stock-prediction
 ```
 
 ### 3. Install Dependencies
 ```bash
 pip install -r frontend/requirements.txt
-pip install -r requirements.txt  # if exists, or install manually: pandas, scikit-learn, mlflow, influxdb-client, yfinance, streamlit, etc.
+pip install -r requirements.txt  
+# if exists, or install manually: pandas, scikit-learn, mlflow, influxdb-client, yfinance, streamlit, etc.
 ```
 
 ### 4. Set Environment Variables
