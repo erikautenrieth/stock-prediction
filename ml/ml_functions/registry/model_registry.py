@@ -17,8 +17,7 @@ def log_sklearn_model_to_mlflow(model, accuracy, feature_names=None):
     mlflow.set_tracking_uri("http://localhost:5000")
     best_model = f"best_{model.__class__.__name__}_model"
 
-    default_logged_model = 'ExtraTreesClassifier'
-    default_logged_accuracy = 0.9186643835616438
+    #default_logged_model = 'ExtraTreesClassifier'
     default_model_path = load_model_path()
 
     with mlflow.start_run():
@@ -89,4 +88,3 @@ def load_model_path():
         return model_path
     except FileNotFoundError:
         print("Model path file not found.")
-        return "runs:/4df9743095004dd1ad96955ee05b9a34/model"

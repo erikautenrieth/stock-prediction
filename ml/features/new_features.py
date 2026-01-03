@@ -1,15 +1,22 @@
-from datetime import datetime
 import yfinance as yf
 import pandas as pd
 import talib as ta
 
+from datetime import datetime
+import numpy as np
+
 def calc_indicators(df):
     # convert relevant columns to numpy arrays to satisfy TA-Lib API
     time_period = 10
-    close = df['Close'].astype(float).to_numpy()
-    high = df['High'].astype(float).to_numpy()
-    low = df['Low'].astype(float).to_numpy()
-    volume = df['Volume'].astype(float).to_numpy()
+    # coerce to 1-D numpy arrays (squeeze any accidental 2-D shapes)
+    close = np.asarray(df['Close']).astype(float).ravel()
+    high = np.asarray(df['High']).astype(float).ravel()
+    low = np.asarray(df['Low']).astype(float).ravel()
+    volume = np.asarray(df['Volume']).astype(float).ravel()
+
+    # sanity check for TA-Lib input dims
+    if close.ndim != 1 or high.ndim != 1 or low.ndim != 1 or volume.ndim != 1:
+        raise RuntimeError(f"TA-Lib inputs must be 1-D arrays; got shapes close={close.shape}, high={high.shape}, low={low.shape}, volume={volume.shape}")
 
     # compute indicators (results are numpy arrays, assign back to dataframe)
     df[f"SMA {time_period}"] = ta.SMA(close, timeperiod=time_period)
@@ -42,7 +49,8 @@ def calc_indicators(df):
     df['low_band'] = low_band
 
     df.dropna(inplace=True)
-    df.drop(["High", "Low", "Adj Close", "Open"], axis=1, inplace=True)
+    # drop intermediate/raw columns if present; ignore if they don't exist
+    df.drop(["High", "Low", "Adj Close", "Open"], axis=1, inplace=True, errors='ignore')
     return df
 
 
